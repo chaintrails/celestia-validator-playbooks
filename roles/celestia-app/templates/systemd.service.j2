@@ -3,7 +3,7 @@ Description=celestia-appd Cosmos daemon
 After=network-online.target
 
 [Service]
-User=$USER
+User=root
 ExecStart=/usr/local/bin/celestia-appd start --home "{{ HOME_DIR }}"
 Restart=on-failure
 RestartSec=3

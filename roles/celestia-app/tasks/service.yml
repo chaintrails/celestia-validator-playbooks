@@ -5,8 +5,10 @@
     dest: /etc/systemd/system/celestia-appd.service
   vars:
     HOME_DIR: "{{ home_dir }}"
-  notify:
-    - Reload systemd
+ 
+- name: Reload systemd
+  systemd:
+    daemon_reload: yes
 
 - name: Start celestia app service
   service:

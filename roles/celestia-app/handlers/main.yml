@@ -1,4 +1,6 @@
 ---
 - name: Reload systemd
   systemd:
-    daemon_reload: yes
+    name: celestia-appd
+    state: reloaded
+

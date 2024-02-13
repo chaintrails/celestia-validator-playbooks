@@ -1,8 +1,16 @@
 ---
-- name: Remove existing Go installations.
+- name: Check Go version
+  command: /usr/local/go/bin/go version
+  register: go_version_result
+  ignore_errors: true
+
+- name: Remove existing Go installation if version mismatches
+  when: 
+    - go_version_result.failed or go_version_result.stdout != go_version
   file:
     path: /usr/local/go
     state: absent
+
 
 - name: Download and extract Go
   unarchive:
@@ -10,6 +18,8 @@
     dest: /usr/local
     remote_src: yes
     mode: 0755
+  when:
+    - go_version_result.failed or go_version_result.stdout != go_version
    
   
 - name: Add go binary path  
@@ -17,3 +27,4 @@
     dest: /etc/profile
     regexp: ^PATH=.*go
     line: 'PATH="$PATH:/usr/local/go/bin"'
+    state: present
