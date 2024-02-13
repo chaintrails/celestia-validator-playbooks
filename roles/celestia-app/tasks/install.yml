@@ -1,28 +1,16 @@
-# celestia-app/tasks/main.yml
 ---
-- name: create directories; home, src & network
-  file:
-    path: "{{ item }}"
-    state: directory
-    mode: 0755
-  loop:
-    - "{{ home_dir }}"
-    - "{{ src_dir }}"
-    - "{{ network_dir }}"
-- name: Clone celestia repo
-  git:
-    repo: "{{ src_repo }}"
-    dest: "{{ src_dir }}"
-    version: "v{{ version }}"
+- name: Download and install from release
+  get_url:
+    url: "{{ release_url }}/v{{ version }}/celestia-app_Linux_x86_64.tar.gz"
+    dest: "/tmp/celestia-app.tar.gz"
 
-- name: Build celestia binary
-  shell:
-    cmd: ". /etc/profile; make build"
-    chdir: "{{ src_dir }}"
-
-- name: Install celestia binary 
-  copy:
-    src: "{{ src_dir }}/build/celestia-appd"
-    dest: /usr/local/bin/celestia-appd
-    mode: 0755
+- name: Extract celestia-app
+  unarchive:
+    src: "/tmp/celestia-app.tar.gz"
+    dest: "/tmp/"
     remote_src: yes
+
+- name: Move celestia-app binary to /usr/local/bin
+  command: mv /tmp/celestia-appd /usr/local/bin/
+  args:
+    creates: /usr/local/bin/celestia-appd
