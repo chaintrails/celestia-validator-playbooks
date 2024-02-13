@@ -1,0 +1,28 @@
+# celestia-app/tasks/main.yml
+---
+- name: create directories; home, src & network
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  loop:
+    - "{{ home_dir }}"
+    - "{{ src_dir }}"
+    - "{{ network_dir }}"
+- name: Clone celestia repo
+  git:
+    repo: "{{ src_repo }}"
+    dest: "{{ src_dir }}"
+    version: "v{{ version }}"
+
+- name: Build celestia binary
+  shell:
+    cmd: ". /etc/profile; make build"
+    chdir: "{{ src_dir }}"
+
+- name: Install celestia binary 
+  copy:
+    src: "{{ src_dir }}/build/celestia-appd"
+    dest: /usr/local/bin/celestia-appd
+    mode: 0755
+    remote_src: yes

@@ -1,0 +1,19 @@
+---
+- name: Remove existing Go installations.
+  file:
+    path: /usr/local/go
+    state: absent
+
+- name: Download and extract Go
+  unarchive:
+    src: "https://golang.org/dl/go{{ go_version }}.linux-amd64.tar.gz"  
+    dest: /usr/local
+    remote_src: yes
+    mode: 0755
+   
+  
+- name: Add go binary path  
+  lineinfile:
+    dest: /etc/profile
+    regexp: ^PATH=.*go
+    line: 'PATH="$PATH:/usr/local/go/bin"'

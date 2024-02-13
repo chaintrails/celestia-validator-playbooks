@@ -1,0 +1,11 @@
+---
+- name: Install & Configure sentries 
+  hosts: sentries
+  vars_files:
+    - group_vars/sentries.yml
+  gather_facts: true
+  become: true
+  roles:
+    - role: go
+    - role: celestia-app 
+  

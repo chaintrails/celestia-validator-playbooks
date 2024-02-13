@@ -1,0 +1,36 @@
+src_repo: https://github.com/celestiaorg/celestia-app.git
+network_repo: https://github.com/celestiaorg/networks.git
+version: 1.6.0
+home_dir: /root/.celestia-app
+network_dir: /data/networks
+src_dir: /opt/celestia-app
+network: mocha-4
+monkier_prefix: monkier
+
+node_type: sentry
+indexer: kv
+min_retain_blocks: 0
+pruning: default
+
+
+genesis: {
+  "mocha-4": https://raw.githubusercontent.com/celestiaorg/networks/master/mocha-4/genesis.json,
+  "mainnet": https://raw.githubusercontent.com/celestiaorg/networks/master/mainnet/genesis.json,
+}
+seeds : {
+  "mocha-4": https://raw.githubusercontent.com/celestiaorg/networks/master/mocha-4/seeds.txt,
+  "mainnet": https://raw.githubusercontent.com/celestiaorg/networks/master/mainnet/seeds.txt,
+}
+persistant_peers: {
+  "mocha-4": https://raw.githubusercontent.com/celestiaorg/networks/master/mocha-4/peers.txt,
+  "mainnet": https://raw.githubusercontent.com/celestiaorg/networks/master/mainnet/peers.txt,
+}
+
+rpcs : {
+  "mocha-4": [],
+  "mainnet": [
+    "https://public-celestia-rpc.numia.xyz",
+    "https://celestia-rpc.mesa.newmetric.xyz",
+    "https://rpc.lunaroasis.net"
+  ]
+}
