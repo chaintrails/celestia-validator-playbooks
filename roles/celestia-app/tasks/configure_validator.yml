@@ -1,0 +1,45 @@
+---
+- name: clean celestia-appd config
+  shell:
+    cmd: "rm -rf {{ home_dir}}/config"
+
+- name: clone celestia's network repo
+  git:
+    repo: "{{ network_repo }}"
+    dest: "{{ network_dir }}"
+
+- name: Init celestia app
+  shell:
+    cmd: "./celestia-appd init {{ monkier_prefix }} --chain-id {{ network }} --home {{ home_dir }}"
+    chdir: "/usr/local/bin/"
+
+- name: copy genesis file
+  copy:
+    src: "{{ network_dir }}/{{ network }}/genesis.json"
+    dest: "{{ home_dir }}/config/genesis.json"
+    remote_src: yes
+
+
+- name: Render and copy configuration files
+  template:
+    src: "{{ item }}"
+    dest: "{{ home_dir }}/config/config.toml"
+  loop:
+    - config.toml.j2
+  vars:
+    MONKIER: "{{ monkier_prefix }}"
+    SEEDS: " "
+    PERSISTENT_PEERS: " "
+    NODE_TYPE: "{{ node_type }}"
+    INDEXER: "{{ indexer }}"
+    
+- name: Render and configure app settings.
+  template:
+    src: "{{ item }}"
+    dest: "{{ home_dir }}/config/app.toml"
+  loop:
+    - app.toml.j2
+  vars:
+    PRUNING: "{{ pruning }}"
+    MIN_RETAIN_BLOCKS: "{{ min_retain_blocks | int }}"
+    

@@ -1,0 +1,14 @@
+go_version: '1.21.1'
+version: 1.6.0
+
+home_dir: /data/celestia-app
+src_dir: /opt/celestia-app
+network_dir: /opt/networks
+
+network: mocha-4
+monkier_prefix: edge-1.sentry.chaintrails
+node_type: validator
+
+indexer: kv
+min_retain_blocks: 0
+pruning: default
