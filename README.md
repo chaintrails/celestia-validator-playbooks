@@ -98,7 +98,8 @@ With the identifiers obtained, you'll now configure Sentry and Validator nodes.
 -   **Configuring `private_peer_ids`**:
   
     -   Update the `private_peer_ids` setting in your node's configuration with the `NodeID` of the Validator. This step ensures that Sentry nodes do not broadcast Validator node details to the rest of the network.
-    `private_peer_ids = "<Validator_NodeID>"` 
+    
+               private_peer_ids = "<Validator_NodeID>" 
         
 
 ### On Validator Nodes
