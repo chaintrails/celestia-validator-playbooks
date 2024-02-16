@@ -9,7 +9,7 @@ Overall
 
 and enhancing security. 
 
-The validator utilizes [tmkms](https://github.com:iqlusioninc/tmkms.git) to sign transactions, ensuring integrity and non-repudiation.
+The validator utilizes [tmkms](https://github.com:iqlusioninc/tmkms.git) to sign , ensuring integrity and non-repudiation.
 
 ## Architecture Overview
 ```mermaid
