@@ -33,7 +33,6 @@ sequenceDiagram
 
 -   Ansible installed on your control machine.
 -   Access to target servers for the validator and sentry nodes.
--   Basic understanding of YAML for editing configuration files.
 
 ## Configuration
 
@@ -42,7 +41,7 @@ Before deploying, you need to modify the configuration files according to your s
 -   `group_vars/sentry.yml` for sentry node configurations.
 -   `group_vars/validator.yml` for validator node configurations.
 
-These YAML files allow you to specify the necessary parameters and settings tailored to your infrastructure and security requirements.
+These YAML files allow you to specify the necessary parameters.
 
 ## Deployment Commands
 
@@ -69,7 +68,7 @@ Replace `your_inventory_file` with the path to your actual inventory file.
 
 # Post Deployment Guide 
 
-After successfully deploying your nodes, follow these steps to configure your nodes for optimal operation and security. The process involves obtaining identifiers for your nodes and configuring Sentry and Validator nodes for proper network interaction.
+ The process involves obtaining identifiers for your nodes and configuring Sentry and Validator nodes for proper network interaction.
 
 ## Obtaining Node Identifiers
 
@@ -81,8 +80,8 @@ You'll need to gather some key identifiers for each node.
     
 -   `curl localhost:26657/status | jq '.result.node_info.id'` 
     
-    This command queries the node's status and extracts the `NodeID` from the JSON response.
-
+    This command queries the node's status and extracts the `NodeID`.
+    
 ### Generating a PeerID
 
 -   **PeerID**: This identifier is used for establishing peer connections and is derived from the `NodeID`. The format for a `PeerID` is: `<NodeID>@<host>:<port>` 
@@ -91,14 +90,14 @@ You'll need to gather some key identifiers for each node.
 
 ## Configuration Steps
 
-With the identifiers obtained, you'll now configure Sentry and Validator nodes to enhance network security and connectivity.
+With the identifiers obtained, you'll now configure Sentry and Validator nodes.
 
 ### On Sentry Nodes
 
 
 -   **Configuring `private_peer_ids`**:
   
-    -   Update the `private_peer_ids` setting in your node's configuration with the `NodeID` of the Validator. This step ensures that Sentry nodes do not broadcast Validator node details to the rest of the network, thus enhancing security.
+    -   Update the `private_peer_ids` setting in your node's configuration with the `NodeID` of the Validator. This step ensures that Sentry nodes do not broadcast Validator node details to the rest of the network.
     `private_peer_ids = "<Validator_NodeID>"` 
         
 
