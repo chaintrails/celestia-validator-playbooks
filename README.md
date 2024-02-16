@@ -66,3 +66,55 @@ Customize `group_vars/sentry.yml` and `group_vars/validator.yml` according to yo
 `ansible-playbook -i your_inventory_file validators.yml` 
 
 Replace `your_inventory_file` with the path to your actual inventory file.
+
+# Post Deployment Guide 
+
+After successfully deploying your nodes, follow these steps to configure your nodes for optimal operation and security. The process involves obtaining identifiers for your nodes and configuring Sentry and Validator nodes for proper network interaction.
+
+## Obtaining Node Identifiers
+
+You'll need to gather some key identifiers for each node.
+
+### Getting a NodeID
+
+-   **NodeID**: This unique identifier for each node can be obtained by executing the following command:
+    
+-   `curl localhost:26657/status | jq '.result.node_info.id'` 
+    
+    This command queries the node's status and extracts the `NodeID` from the JSON response.
+
+### Generating a PeerID
+
+-   **PeerID**: This identifier is used for establishing peer connections and is derived from the `NodeID`. The format for a `PeerID` is: `<NodeID>@<host>:<port>` 
+    
+    Replace `<NodeID>`, `<host>`, and `<port>` with your node's specific details.
+
+## Configuration Steps
+
+With the identifiers obtained, you'll now configure Sentry and Validator nodes to enhance network security and connectivity.
+
+### On Sentry Nodes
+
+
+-   **Configuring `private_peer_ids`**:
+  
+    -   Update the `private_peer_ids` setting in your node's configuration with the `NodeID` of the Validator. This step ensures that Sentry nodes do not broadcast Validator node details to the rest of the network, thus enhancing security.
+    `private_peer_ids = "<Validator_NodeID>"` 
+        
+
+### On Validator Nodes
+
+-   **Configuring `persistent_peers`**:
+  
+    -   Update the `persistent_peers` setting with the `PeerID` of each Sentry node. If you have multiple Sentry nodes, list their `PeerIDs` separated by commas.
+    -   This configuration ensures that your Validator nodes maintain a persistent connection to your Sentry nodes, facilitating reliable communication.
+    -   Example configuration for a single Sentry node:
+        
+                persistent_peers = "<Sentry_PeerID>"
+    
+    -   For multiple Sentry nodes:
+
+               persistent_peers = "<Sentry_PeerID1>,<Sentry_PeerID2>"
+        
+
+Ensure to restart the nodes.
