@@ -9,7 +9,7 @@ Overall
 
 and enhancing security. 
 
-The validator utilizes [horcrux]([https://github.com:iqlusioninc/tmkms.git](https://github.com/strangelove-ventures/horcrux/tree/main) to sign , ensuring integrity and non-repudiation.
+The validator utilizes [horcrux](https://github.com/strangelove-ventures/horcrux/tree/main) to sign , ensuring integrity and non-repudiation.
 
 ## Architecture Overview
 ```mermaid
