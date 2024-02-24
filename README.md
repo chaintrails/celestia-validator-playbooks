@@ -9,7 +9,7 @@ Overall
 
 and enhancing security. 
 
-The validator utilizes [tmkms](https://github.com:iqlusioninc/tmkms.git) to sign , ensuring integrity and non-repudiation.
+The validator utilizes [horcrux]([https://github.com:iqlusioninc/tmkms.git](https://github.com/strangelove-ventures/horcrux/tree/main) to sign , ensuring integrity and non-repudiation.
 
 ## Architecture Overview
 ```mermaid
@@ -17,7 +17,7 @@ sequenceDiagram
     participant C as Celestia Network
     participant S as Sentry Node
     participant V as Validator Node
-    participant T as TM KMS Signer   
+    participant T as Signer   
     C->>S: Exchange Block Headers
     S->>C: Exchange Block Headers
     S->>V: Forward Block Headers
